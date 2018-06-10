@@ -1,6 +1,9 @@
 import random
 import time
+import MySQLdb
 
+conn = MySQLdb.connect(host="localhost",user="root",passwd="",db="neuraldatas")
+x = conn.cursor()
 
 rate = 0.01
 
@@ -40,9 +43,10 @@ while 1:
         else:
             print("{0} dovrebbe essere {1}".format(out, test[i][2]))
     epoches += 1
-    print("Pesetto1 = {0}\nPesetto2 is {1}".format(weights[0], weights[1]))
+    print("Pesetto1 = {0}\nPesetto2 è {1}".format(weights[0], weights[1]))
     print("-" * 79 + "\n\n")
-	
+		x.execute("""INSERT INTO neuraldatas VALUES (peso1,peso2,risultato)""",(weights[0],weights[1],out))
+                conn.commit(
 	
 
     if epoches % 10000 == 0:
